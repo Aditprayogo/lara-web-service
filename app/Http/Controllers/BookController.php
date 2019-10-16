@@ -81,4 +81,10 @@ class BookController extends Controller
     {
         //
     }
+
+    public function cetak($judul)
+    {
+        # code...
+        return $judul;
+    }
 }
