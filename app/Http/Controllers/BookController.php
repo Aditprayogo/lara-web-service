@@ -13,7 +13,9 @@ class BookController extends Controller
      */
     public function index()
     {
-        //
+        $book = \App\Book::all();
+
+        return $book;
     }
 
     /**
