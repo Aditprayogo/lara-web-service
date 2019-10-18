@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use Hash;
 use App\User;
 use Illuminate\Support\Facades\Validator;
+use Auth;
 
 
 class AuthController extends Controller
@@ -107,5 +108,18 @@ class AuthController extends Controller
     public function logout(Request $request)
     {
         # code...
+        $user = Auth::user();
+
+        if ($user) {
+            # code...
+            $user->api_token = null;
+            $user->save();
+        }
+
+        return response()->json([
+            'status' => 'success',
+            'message' => 'logout berhasil',
+            'data' => null
+        ], 200);
     }
 }

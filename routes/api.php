@@ -43,7 +43,14 @@ Route::prefix('v1')->group(function () {
     
     // tambahkan sekalian untuk register dan logout :
     Route::post('register', 'AuthController@register');
-    Route::post('logout', 'AuthController@logout');
+    
+
+    //private route
+    Route::middleware('auth:api')->group(function () {
+
+        Route::post('logout', 'AuthController@logout');
+
+    });
 
    
 
