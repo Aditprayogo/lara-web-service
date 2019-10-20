@@ -44,6 +44,7 @@ Route::prefix('v1')->group(function () {
     // tambahkan sekalian untuk register dan logout :
     Route::post('register', 'AuthController@register');
     
+    Route::get('categories/random/{count}', 'CategoryController@random');
 
     //private route
     Route::middleware('auth:api')->group(function () {
