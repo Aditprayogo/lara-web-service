@@ -3,6 +3,8 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use App\Book;
+use App\Http\Resources\Books as BookResourceCollection;
 
 class BookController extends Controller
 {
@@ -88,5 +90,14 @@ class BookController extends Controller
     {
         # code...
         return $judul;
+    }
+
+    public function top($count)
+    {
+        $criteria = Book::select('*')
+        ->orderBy('views', 'DESC')
+        ->limit($count)
+        ->get();
+        return new BookResourceCollection($criteria);
     }
 }
