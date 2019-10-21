@@ -6,6 +6,8 @@ use Illuminate\Http\Request;
 use App\Category;
 use App\Http\Resources\Categories as CategoryResourceCollection;
 
+use App\Http\Resources\Category as CategoryResource;
+
 
 class CategoryController extends Controller
 {
@@ -25,5 +27,12 @@ class CategoryController extends Controller
         # code...
         $criteria = Category::paginate(6);
         return new CategoryResourceCollection($criteria);
-    }
+	}
+	
+	public function slug($slug)
+	{
+		# code...
+		$criteria = Category::where('slug', $slug)->first();
+		return new CategoryResource($criteria);
+	}
 }
