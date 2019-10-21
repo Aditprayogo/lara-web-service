@@ -45,7 +45,11 @@ Route::prefix('v1')->group(function () {
     Route::post('register', 'AuthController@register');
     
     Route::get('categories/random/{count}', 'CategoryController@random');
+    Route::get('categories', 'CategoryController@index');
+
     Route::get('books/top/{count}', 'BookController@top');
+    Route::get('books', 'BookController@index');
+
 
     //private route
     Route::middleware('auth:api')->group(function () {

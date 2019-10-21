@@ -19,4 +19,11 @@ class CategoryController extends Controller
                     ->get();
         return new CategoryResourceCollection($criteria);
     }
+
+    public function index()
+    {
+        # code...
+        $criteria = Category::paginate(6);
+        return new CategoryResourceCollection($criteria);
+    }
 }

@@ -15,9 +15,9 @@ class BookController extends Controller
      */
     public function index()
     {
-        $book = \App\Book::all();
-
-        return $book;
+          # code...
+          $criteria = Book::paginate(6);
+          return new BookResourceCollection($criteria);
     }
 
     /**
@@ -100,4 +100,6 @@ class BookController extends Controller
         ->get();
         return new BookResourceCollection($criteria);
     }
+
+  
 }
