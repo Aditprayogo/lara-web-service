@@ -20,9 +20,13 @@ class BooksTableSeeder extends Seeder
             $title = str_replace('.', '', $title);
             $slug = str_replace(' ', '-', strtolower($title));
             $category = $image_categories[mt_rand(0, 8)];
-            $cover_path = 'C:\xampp\htdocs\larashop-api\public\images\books';
-            $cover_fullpath = $faker->image( $cover_path, 300, 500, $category, true, true, $category);
-            $cover = str_replace($cover_path . '/' , '', $cover_fullpath);
+            // $cover_path = public_path('avatars');;
+            // $cover_fullpath = $faker->image( $cover_path, 300, 500, $category, true, true, $category);
+            // $cover = str_replace($cover_path . '/' , '', $cover_fullpath);
+            $filepath = storage_path('app/public/images');
+            if(!File::exists($filepath)){
+                File::makeDirectory($filepath);
+            }
 
             $books[$i] = [
 
@@ -31,7 +35,7 @@ class BooksTableSeeder extends Seeder
                 'description' => $faker->text(255),
                 'author' => $faker->name,
                 'publisher' => $faker->company,
-                'cover' => $cover,
+                'cover' => $faker->image('public/storage/images/books',400,300, null, false),
                 'price' => mt_rand(1, 10) * 50000,
                 'weight' => 0.5,
                 'status' => 'PUBLISH',

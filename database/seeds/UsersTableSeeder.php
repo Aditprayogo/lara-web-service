@@ -16,9 +16,10 @@ class UsersTableSeeder extends Seeder
         
         for($i=0;$i<5;$i++){
 
-            $avatar_path = 'C:\xampp\htdocs\larashop-api\public\images\users';
-            $avatar_fullpath = $faker->image( $avatar_path, 200, 250,'people', true, true, 'people');
-            $avatar = str_replace($avatar_path . '/' , '', $avatar_fullpath);
+            // $avatar_path = public_path('avatars');
+            // $avatar_fullpath = $faker->image( $avatar_path, 200, 250,'people', true, true, 'people');
+            // $avatar = str_replace($avatar_path . '/' , '', $avatar_fullpath);
+           
 
             $users[$i] = [
 
@@ -26,7 +27,7 @@ class UsersTableSeeder extends Seeder
                 'email' => $faker->unique()->safeEmail,
                 'password' => bcrypt('123456'),
                 'roles' => json_encode(['CUSTOMER']),
-                'avatar' => $avatar,
+                'avatar' => $faker->image('public/storage/images/users',400,300, null, false),
                 'status' => 'ACTIVE',
                 'created_at' => Carbon\Carbon::now(),
             ];

@@ -21,14 +21,18 @@ class CategoriesTableSeeder extends Seeder
             $name = str_replace('.', '', $name);
             $slug = str_replace(' ', '-', strtolower($name));
             $category = $image_categories[mt_rand(0, 8)];
-            $image_path = 'C:\xampp\htdocs\larashop-api\public\images\categories';
-            $image_fullpath = $faker->image( $image_path, 500, 300, $category, true, true, $category);
-            $image = str_replace($image_path . '/' , '', $image_fullpath);
+            // $image_path = public_path('avatars');;
+            // $image_fullpath = $faker->image( $image_path, 500, 300, $category, true, true, $category);
+            // $image = str_replace($image_path . '/' , '', $image_fullpath);
+            $filepath = storage_path('app/public/images');
+            if(!File::exists($filepath)){
+                File::makeDirectory($filepath);
+            }
 
             $categories[$i] = [
                 'name' => $name,
                 'slug' => $slug,
-                'image' => $image,
+                'image' => $faker->image('public/storage/images/categories',400,300, null, false),
                 'status' => 'PUBLISH',
                 'created_at' => Carbon\Carbon::now(),
             ];
