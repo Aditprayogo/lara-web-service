@@ -68,7 +68,6 @@ class AuthController extends Controller
         $data = null;
         $code = 400;
 
-
         if ($validator->fails()) { 
             // validasi gagal
             $errors = $validator->errors();

@@ -16,10 +16,6 @@ class UsersTableSeeder extends Seeder
         
         for($i=0;$i<5;$i++){
 
-            // $avatar_path = public_path('avatars');
-            // $avatar_fullpath = $faker->image( $avatar_path, 200, 250,'people', true, true, 'people');
-            // $avatar = str_replace($avatar_path . '/' , '', $avatar_fullpath);
-           
 
             $users[$i] = [
 
