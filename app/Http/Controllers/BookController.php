@@ -111,5 +111,16 @@ class BookController extends Controller
 		return new BookResource($criteria);
 	}
 
+	public function search($keyword)
+	{
+		# code...
+		$criteria = Book::select('*')
+		->where('title', 'LIKE', "%" . $keyword . "%")
+		->orderBy('views', 'DESC')
+		->get();
+
+		return new BookResourceCollection($criteria);
+	}
+
   
 }
