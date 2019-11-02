@@ -20,7 +20,7 @@ class AuthController extends Controller
         ]);
 
 
-        $user = User::where('email', '=', $request->email)->firstOrFail();
+        $user = User::where('email', '=', $request->email)->first();
         $status = "error";
         $message = "";
         $data = null;
@@ -118,7 +118,7 @@ class AuthController extends Controller
         return response()->json([
             'status' => 'success',
             'message' => 'logout berhasil',
-            'data' => null
+            'data' => []
         ], 200);
     }
 }
