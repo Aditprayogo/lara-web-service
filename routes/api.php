@@ -42,7 +42,9 @@ Route::prefix('v1')->group(function () {
     Route::post('login', [ 'as' => 'login', 'uses' => 'AuthController@login']);
     
     // tambahkan sekalian untuk register dan logout :
-    Route::post('register', 'AuthController@register');
+	Route::post('register', 'AuthController@register');
+	
+	
     
     Route::get('categories/random/{count}', 'CategoryController@random');
 	Route::get('categories', 'CategoryController@index');
