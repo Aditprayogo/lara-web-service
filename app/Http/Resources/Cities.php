@@ -14,6 +14,8 @@ class Cities extends ResourceCollection
      */
     public function toArray($request)
     {
+
+		
 		return [
 			'status' => 'success',
 			'message' => 'cities data',

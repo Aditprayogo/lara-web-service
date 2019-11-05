@@ -43,9 +43,7 @@ Route::prefix('v1')->group(function () {
     
     // tambahkan sekalian untuk register dan logout :
 	Route::post('register', 'AuthController@register');
-	
-	
-    
+
     Route::get('categories/random/{count}', 'CategoryController@random');
 	Route::get('categories', 'CategoryController@index');
 	Route::get('categories/slug/{slug}', 'CategoryController@slug'); 
