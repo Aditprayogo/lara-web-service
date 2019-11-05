@@ -54,6 +54,11 @@ Route::prefix('v1')->group(function () {
 
 	Route::get('books/search/{keyword}', 'BookController@search');
 
+	Route::get('provinces', 'ShopController@provinces'); // <= ini
+	
+	Route::get('cities', 'ShopController@cities'); // <= ini
+   
+
 
     //private route
     Route::middleware('auth:api')->group(function () {

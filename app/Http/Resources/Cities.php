@@ -14,6 +14,11 @@ class Cities extends ResourceCollection
      */
     public function toArray($request)
     {
-        return parent::toArray($request);
+		return [
+			'status' => 'success',
+			'message' => 'cities data',
+			'data' => parent::toArray($request),
+		];
+		   
     }
 }
