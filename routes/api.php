@@ -65,7 +65,10 @@ Route::prefix('v1')->group(function () {
 
         Route::post('logout', 'AuthController@logout');
 
-    });
+	});
+	
+	Route::get('couriers', 'ShopController@couriers');
+
 
    
 

@@ -76,4 +76,21 @@ class ShopController extends Controller
 
 		
 	}
+
+	public function couriers()
+	{
+		# code...
+		$couriers = [
+			['id'=>'jne', 'text'=> 'JNE'],
+			['id'=>'tiki', 'text'=> 'TIKI'],
+			['id'=>'pos', 'text'=> 'POS'],
+		];
+
+		return response()->json([
+			'status' => 'success',
+			'message' => 'couriers',
+			'data' => $couriers
+		], 200);
+		   
+	}
 }
