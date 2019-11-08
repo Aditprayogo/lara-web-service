@@ -97,27 +97,91 @@ class ShopController extends Controller
 
 	public function services(Request $request)
 	{
-		# code...
-		// Validasi kelengkapan data
-		// 1. data belanja
-		// 2. data courier
-		// 3. data kota pengiriman dari tabel user
-
-		// Validasi data belanja
-		// 1. Cek stok barang
-		// 2. Update data belanja sesuai stok
-
-		// Request data services dari API RajaOngkir
-		// Response
-		// 1. Daftar services jika ada
-		// 2. Data belanja yang telah diupdate
-		// 3. Informasi jumlah belanja vs stok
-		$this->validate($request, [
-			'courier' => 'required',
-			'carts' => 'required'
-		]);
-
-		$user = Auth::user();
+		$status = "error";
+        $message = "";
+        $data = [];
+        // validasi kelengkapan data
+        $this->validate($request, [
+            'courier' => 'required', 
+            'carts' => 'required',
+        ]);
+        $user = Auth::user();
+        if($user){
+            $destination = $user->city_id;
+            if($destination>0){
+                // hardcode
+                $origin = 153; // Jakarta Selatan
+                $courier = $request->courier;
+                $carts = $request->carts;
+                $carts = json_decode($carts, true);
+                // validasi data belanja
+                $validCart = $this->validateCart($carts);
+                $data['safe_carts'] = $validCart['safe_carts'];
+                $data['total'] = $validCart['total'];
+                $quantity_different = $data['total']['quantity_before']<>$data['total']['quantity'];
+				$weight = $validCart['total']['weight'] * 1000;
+				
+                if($weight>0){
+                    // request courier service API RajaOngkir
+                    $parameter = [
+                        "origin"        => $origin, 
+                        "destination"   => $destination, 
+                        "weight"        => $weight, 
+                        "courier"       => $courier
+                    ];
+					$respon_services = $this->getServices($parameter);
+					// jika sukses
+                    if ($respon_services['error']==null) {
+                        $services = [];
+                        $response = json_decode($respon_services['response']);
+                        $costs = $response->rajaongkir->results[0]->costs;
+                        foreach($costs as $cost){
+                            $service_name = $cost->service;
+                            $service_cost = $cost->cost[0]->value;
+                            $service_estimation = str_replace('hari', '', trim($cost->cost[0]->etd));
+                            $services[] = [
+                                'service' => $service_name,
+                                'cost' => $service_cost,
+                                'estimation' => $service_estimation,
+                                'resume' => $service_name .' [ Rp. '.number_format($service_cost).', Etd: '.$cost->cost[0]->etd.' day(s) ]'
+                            ];
+                        }
+                        // Response
+                        if(count($services)>0){
+                            $data['services'] = $services;
+                            $status = "success";
+                            $message = "getting services success";
+                        }
+                        else{
+                            $message = "courier services unavailable";
+                        }
+                        if($quantity_different){
+                            $status = "warning";
+                            $message = "Check cart data, ".$message;
+                        }
+                        
+                    } else {
+						// jika gagal
+                        $message = "cURL Error #:" . $respon_services['error'];
+                    }
+                }
+                else{
+                    $message = "weight invalid";  
+                }
+            }
+            else{
+                $message = "destination not set"; 
+            }
+        }
+        else{
+            $message = "user not found"; 
+        }
+        
+        return response()->json([
+            'status' => $status,
+            'message' => $message,
+            'data' => $data
+        ], 200);
 	}
 
 	protected function validateCart($carts){
