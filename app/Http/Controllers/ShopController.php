@@ -9,6 +9,7 @@ use App\Http\Resources\Provinces as ProvinceResourceCollection;
 use App\City;
 use App\Http\Resources\Cities as CityResourceCollection;
 use App\Book;
+use Auth;
 
 class ShopController extends Controller
 {

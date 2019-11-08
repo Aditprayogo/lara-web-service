@@ -63,7 +63,10 @@ Route::prefix('v1')->group(function () {
     //private route
     Route::middleware('auth:api')->group(function () {
 
-        Route::post('logout', 'AuthController@logout');
+		Route::post('logout', 'AuthController@logout');
+		
+		Route::post('shipping', 'ShopController@shipping');
+ 		Route::post('services', 'ShopController@services'); 
 
 	});
 	
