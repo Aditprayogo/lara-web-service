@@ -93,4 +93,24 @@ class ShopController extends Controller
 		], 200);
 		   
 	}
+
+	public function services(Request $request)
+	{
+		# code...
+		// Validasi kelengkapan data
+		// 1. data belanja
+		// 2. data courier
+		// 3. data kota pengiriman dari tabel user
+
+		// Validasi data belanja
+		// 1. Cek stok barang
+		// 2. Update data belanja sesuai stok
+		
+		// Request data services dari API RajaOngkir
+		// Response
+		// 1. Daftar services jika ada
+		// 2. Data belanja yang telah diupdate
+		// 3. Informasi jumlah belanja vs stok
+
+	}
 }
